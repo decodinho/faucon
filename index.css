@@ -188,6 +188,9 @@ body {
 .dot-blue { background-color: #3498db; box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); }
 .dot-orange { background-color: #e67e22; box-shadow: 0 0 10px rgba(230, 126, 34, 0.4); }
 .dot-purple { background-color: #8F00FF; box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+.dot-pink { background-color: pink; box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+.dot-brown { background-color: brown; box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+.dot-beige { background-color: #F5F5DC; box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
 
 /* Ajustement de la grille pour ne pas chevaucher */
 .video-grid {
