@@ -1,1 +1,140 @@
+:root {
+    --primary-purple: #6200ea; /* Violet vibrant */
+    --light-purple: #b388ff;
+    --dark-bg: #0f0f0f;
+    --sidebar-bg: #0f0f0f;
+    --text-white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, Arial, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-white);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    background-color: var(--dark-bg);
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: var(--primary-purple); /* Changement du rouge au violet */
+    font-size: 20px;
+    font-weight: bold;
+    gap: 5px;
+}
+
+.search-box {
+    display: flex;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 40px;
+    overflow: hidden;
+    width: 500px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    width: 100%;
+}
+
+.search-box button {
+    background: #333;
+    border: none;
+    padding: 0 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: var(--primary-purple);
+}
+
+/* Layout */
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 240px;
+    height: calc(100vh - 60px);
+    padding: 10px;
+    position: fixed;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-item i { margin-right: 20px; font-size: 20px; }
+
+.nav-item:hover, .nav-item.active {
+    background-color: rgba(98, 0, 234, 0.2);
+    color: var(--light-purple);
+}
+
+/* Grille Vidéo */
+.video-grid {
+    margin-left: 240px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.video-card .thumbnail {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(45deg, #311b92, var(--primary-purple));
+    border-radius: 12px;
+    transition: transform 0.2s;
+}
+
+.video-card:hover .thumbnail {
+    transform: scale(1.02);
+}
+
+.video-info {
+    display: flex;
+    margin-top: 12px;
+    gap: 12px;
+}
+
+.channel-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--light-purple);
+    border-radius: 50%;
+}
+
+.text-content h3 {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    line-height: 1.4;
+}
+
+.text-content p {
+    font-size: 12px;
+    color: #aaa;
+    margin: 0;
+}
 
