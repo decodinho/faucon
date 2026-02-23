@@ -137,3 +137,64 @@ body {
     color: #aaa;
     margin: 0;
 }
+
+/* Barre de catégories */
+.category-wrapper {
+    grid-column: 1 / -1; /* Prend toute la largeur de la grille */
+    display: flex;
+    gap: 12px;
+    padding: 10px 0 20px 0;
+    overflow-x: auto;
+    background-color: var(--dark-bg);
+    position: sticky;
+    top: 70px; /* Juste en dessous de la navbar */
+    z-index: 10;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    background: #222;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid #333;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+
+.category-item:hover {
+    background: #333;
+    border-color: var(--primary-purple);
+}
+
+.category-item.active {
+    background: var(--primary-purple);
+    border-color: var(--light-purple);
+}
+
+/* Les ronds de couleur (Rayon 25px = Diamètre 50px) */
+/* Note : J'ai ajusté à 12px pour l'intégration visuelle, 
+   mais voici le code pour des ronds bien visibles */
+.dot {
+    width: 25px; 
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.dot-red { background-color: #ff0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
+.dot-green { background-color: #2ecc71; box-shadow: 0 0 10px rgba(46, 204, 113, 0.4); }
+.dot-blue { background-color: #3498db; box-shadow: 0 0 10px rgba(52, 152, 219, 0.4); }
+.dot-orange { background-color: #e67e22; box-shadow: 0 0 10px rgba(230, 126, 34, 0.4); }
+.dot-cyan { background-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+
+/* Ajustement de la grille pour ne pas chevaucher */
+.video-grid {
+    margin-left: 240px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    width: calc(100% - 240px);
+}
