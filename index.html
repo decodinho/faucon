@@ -2,22 +2,21 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>falcon</title>
-    <link rel="stylesheet" href="index.css">
-    <!-- Icones via FontAwesome pour le réalisme -->
+    <title>YouTube Purple Edition</title>
+    <!-- Importation des icônes Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <!-- Barre de navigation -->
     <header class="navbar">
         <div class="nav-left">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars menu-icon"></i>
             <div class="logo">
                 <i class="fab fa-youtube"></i>
-                <span>falcon</span>
+                <span>YouTube<sup>VIOLET</sup></span>
             </div>
         </div>
+        
         <div class="nav-center">
             <div class="search-box">
                 <input type="text" placeholder="Rechercher">
@@ -25,46 +24,65 @@
             </div>
             <div class="mic-icon"><i class="fas fa-microphone"></i></div>
         </div>
+
         <div class="nav-right">
             <i class="fas fa-video"></i>
+            <i class="fas fa-th"></i>
             <i class="fas fa-bell"></i>
-            <div class="user-avatar"></div>
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
         </div>
     </header>
 
     <main class="container">
-        <!-- Barre latérale -->
         <aside class="sidebar">
-            <div class="nav-item active"><i class="fas fa-home"></i><span>Home</span></div>
-            <div class="nav-item"><i class="fas fa-film"></i><span>Shorts</span></div>
-            <div class="nav-item"><i class="fas fa-layer-group"></i><span>Subscriptions</span></div>
+            <div class="nav-item active">
+                <i class="fas fa-house"></i>
+                <span>Accueil</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-bolt"></i>
+                <span>Shorts</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-clapperboard"></i>
+                <span>Abonnements</span>
+            </div>
             <hr>
-            <div class="nav-item"><i class="fas fa-play-circle"></i><span>You</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>History</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Liked videos</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>PlayLists</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Commented videos</span></div>
-            <hr>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch later</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with friends</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with family</span></div>
-            
+            <div class="nav-item">
+                <i class="fas fa-box-archive"></i>
+                <span>Bibliothèque</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>Historique</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-circle-play"></i>
+                <span>Vos vidéos</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-clock"></i>
+                <span>À regarder plus tard</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-thumbs-up"></i>
+                <span>Vidéos "J'aime"</span>
+            </div>
         </aside>
 
-        <!-- Grille de vidéos -->
         <section class="video-grid">
-            <!-- Exemple de carte vidéo (à multiplier) -->
+            <!-- Exemple de vidéo -->
             <div class="video-card">
-                <div class="thumbnail"></div>
+                <div class="thumbnail"><i class="fas fa-play"></i></div>
                 <div class="video-info">
-                    <div class="channel-icon"></div>
+                    <div class="channel-icon"><i class="fas fa-user-astronaut"></i></div>
                     <div class="text-content">
-                        <h3>Apprendre le CSS moderne avec style</h3>
-                        <p>Code Design • 120k vues • il y a 2 heures</p>
+                        <h3>Masterclass : Le Design Violet</h3>
+                        <p>Creative Studio • 1M vues</p>
                     </div>
                 </div>
             </div>
-            <!-- Répétez cette div 7-8 fois pour remplir la page -->
+            <!-- Dupliquer ici -->
         </section>
     </main>
 </body>
