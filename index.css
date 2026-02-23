@@ -201,3 +201,78 @@ body {
     gap: 20px;
     width: calc(100% - 240px);
 }
+/* Bouton de Connexion */
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--light-purple);
+    border: 1px solid #3d3d3d;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: rgba(138, 43, 226, 0.1);
+    border-color: var(--primary-purple);
+}
+
+.login-btn i {
+    font-size: 20px;
+}
+
+/* Icônes de navigation */
+.icon-btn {
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--light-purple);
+}
+
+/* Actions sous les vidéos */
+.video-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+    color: #aaa;
+}
+
+.video-actions i {
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.video-actions i:hover {
+    color: var(--light-purple);
+    transform: translateY(-2px);
+}
+
+/* Style spécifique pour le panier dans la nav */
+.fa-shopping-cart {
+    position: relative;
+}
+
+/* Petit badge sur le panier (optionnel) */
+.fa-shopping-cart::after {
+    content: '2';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--primary-purple);
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+}
+
