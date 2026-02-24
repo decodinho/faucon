@@ -1,4 +1,4 @@
-/* --- Centrage Absolu de l'Importation Falcon --- */
+/* --- Centrage Plein Écran (Noms de blocs inchangés) --- */
 
 :root {
     --accent-green: #2ecc71; 
@@ -7,40 +7,48 @@
     --text-dim: #aaaaaa;
 }
 
-/* 1. On force le conteneur à prendre toute la place disponible pour centrer */
-.upload-section {
-   
+/* On utilise le parent existant pour centrer tout ce qui est à l'intérieur */
+.video-grid {
+    margin-left: 240px;      /* Garde l'espace pour ta sidebar */
+    width: calc(100% - 240px);
+    height: calc(100vh - 80px); /* Toute la hauteur moins la navbar */
+    display: flex;
     justify-content: center; /* Centre horizontalement */
     align-items: center;     /* Centre verticalement */
-    background: transparent;
+    padding: 0;
 }
 
-/* 2. Le bloc de contenu (sans boîtes) */
+/* Ton bloc sans changement de nom */
 .upload-container {
     background: transparent; 
     text-align: center;
-    align-items: center;
     border: none;
     box-shadow: none;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Tes éléments internes inchangés */
 .upload-header {
     margin-bottom: 20px;
 }
 
 .upload-header h2 {
-    font-size: 1.8rem; /* Un peu plus grand pour l'impact */
+    font-size: 1.8rem;
     font-weight: 500;
     color: var(--text-main);
 }
 
 .upload-area {
-   
+    display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-/* LE CERCLE PULSANT VERT AU CENTRE */
 .pulse-circle {
     width: 110px;
     height: 110px;
@@ -67,8 +75,6 @@
 .upload-area p {
     font-size: 1rem;
     color: var(--text-dim);
-    max-width: 450px;
-    line-height: 1.5;
 }
 
 .select-btn {
@@ -83,17 +89,11 @@
     margin-top: 20px;
 }
 
-.select-btn:hover {
-    transform: scale(1.1);
-    filter: brightness(1.1);
-}
-
 .upload-footer {
     margin-top: 50px;
-    background: transparent;
 }
 
-/* ANIMATION DE PULSATION VERTE */
+/* Ton animation */
 @keyframes green-pulse {
     0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
     70% { transform: scale(1); box-shadow: 0 0 0 30px rgba(46, 204, 113, 0); }
