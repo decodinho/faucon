@@ -54,8 +54,8 @@
     animation: pulse 2s infinite;
 }
 
-.upload-area h3 { font-size: 18px; font-weight: 400; color: #fff; }
-.upload-area p { color: #aaa; font-size: 13px; }
+.upload-area h3 { font-size: 18px; font-weight: 400; color: #FFD700; }
+.upload-area p { color: #FFD700; font-size: 13px; }
 
 .select-btn {
     background: var(--primary-purple);
