@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload | YouTube Studio Purple</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body class="upload-body">
+    <div class="upload-container">
+        <div class="upload-header">
+            <h2>Importer des vidéos</h2>
+            <i class="fas fa-times close-btn"></i>
+        </div>
+        
+        <div class="upload-area" id="drop-zone">
+            <div class="pulse-circle">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h3>Glissez-déposez des fichiers vidéo pour les envoyer</h3>
+            <p>Vos vidéos seront privées jusqu'à ce que vous les publiiez.</p>
+            
+            <input type="file" id="file-input" hidden>
+            <button class="select-btn" onclick="document.getElementById('file-input').click()">
+                Select your files
+            </button>
+        </div>
+
+        <div class="upload-footer">
+            <p>En consultant vos vidéos, vous acceptez les <a href="#">Conditions d'utilisation</a> de falcon.</p>
+            <div class="footer-icons">
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
