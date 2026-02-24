@@ -4,7 +4,7 @@
 }
 
 .upload-body {
-    background: radial-gradient(circle at center, #1a0a2e 0%, #0f0f0f 100%);
+    background: #2C2C2C;
     height: 100vh;
     display: flex;
     justify-content: center;
