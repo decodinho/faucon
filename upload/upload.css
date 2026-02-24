@@ -1,117 +1,109 @@
-/* --- Design Ultra-Épuré Falcon (Pulsation Verte) --- */
+/* --- Centrage Absolu de l'Importation Falcon --- */
 
 :root {
-    --accent-green: #2ecc71; /* Vert éclatant pour le cercle */
-    --accent-turquoise: #40E0D0; /* On garde ton turquoise pour le bouton */
+    --accent-green: #2ecc71; 
+    --accent-turquoise: #40E0D0; 
     --text-main: #ffffff;
     --text-dim: #aaaaaa;
 }
 
-/* Conteneur invisible sans boîtes */
+/* 1. On force le conteneur à prendre toute la place disponible pour centrer */
+.upload-section {
+    margin-left: 240px; /* Espace pour la barre latérale */
+    width: calc(100% - 240px);
+    height: calc(100vh - 70px); /* Toute la hauteur moins la navbar */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    background: transparent;
+}
+
+/* 2. Le bloc de contenu (sans boîtes) */
 .upload-container {
     background: transparent; 
     text-align: center;
     width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
-    font-family: 'Roboto', sans-serif;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: none;
     box-shadow: none;
 }
 
 .upload-header {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    border: none;
+    margin-bottom: 20px;
 }
 
 .upload-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Un peu plus grand pour l'impact */
+    font-weight: 500;
     color: var(--text-main);
 }
 
 .upload-area {
-    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-/* LE CERCLE PULSANT EN VERT */
+/* LE CERCLE PULSANT VERT AU CENTRE */
 .pulse-circle {
-    width: 100px;
-    height: 100px;
-    background: rgba(46, 204, 113, 0.2); /* Fond vert transparent */
+    width: 110px;
+    height: 110px;
+    background: rgba(46, 204, 113, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    /* L'animation utilise maintenant l'ombre verte */
     animation: green-pulse 2s infinite ease-in-out;
 }
 
 .pulse-circle i {
-    font-size: 40px;
-    color: var(--accent-green); /* L'icône devient verte aussi */
+    font-size: 45px;
+    color: var(--accent-green);
 }
 
 .upload-area h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--text-main);
+    margin: 0;
 }
 
 .upload-area p {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-dim);
+    max-width: 450px;
+    line-height: 1.5;
 }
 
-/* Bouton Sélectionner (Turquoise pour le rappel du thème) */
 .select-btn {
     background: var(--accent-turquoise);
     color: #000;
     border: none;
-    padding: 12px 30px;
+    padding: 14px 35px;
     border-radius: 30px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .select-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
     filter: brightness(1.1);
 }
 
-/* Footer sans boîte */
 .upload-footer {
-    padding: 40px 20px;
+    margin-top: 50px;
     background: transparent;
-}
-
-.footer-icons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    font-size: 1.3rem;
-    color: var(--text-dim);
 }
 
 /* ANIMATION DE PULSATION VERTE */
 @keyframes green-pulse {
-    0% { 
-        transform: scale(0.95); 
-        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); 
-    }
-    70% { 
-        transform: scale(1); 
-        box-shadow: 0 0 0 25px rgba(46, 204, 113, 0); 
-    }
-    100% { 
-        transform: scale(0.95); 
-        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); 
-    }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+    70% { transform: scale(1); box-shadow: 0 0 0 30px rgba(46, 204, 113, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
 }
