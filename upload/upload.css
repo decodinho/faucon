@@ -9,10 +9,7 @@
 
 /* 1. On force le conteneur à prendre toute la place disponible pour centrer */
 .upload-section {
-    margin-left: 240px; /* Espace pour la barre latérale */
-    width: calc(100% - 240px);
-    height: calc(100vh - 70px); /* Toute la hauteur moins la navbar */
-    display: flex;
+   
     justify-content: center; /* Centre horizontalement */
     align-items: center;     /* Centre verticalement */
     background: transparent;
