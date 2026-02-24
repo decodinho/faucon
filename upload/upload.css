@@ -11,14 +11,11 @@
 
 .upload-container {
     background: var(--bg-card);
-    width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
-    border-radius: 16px;
+    text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
-    border: 1px solid var(--border-color);
+    
 }
 
 /* Header */
