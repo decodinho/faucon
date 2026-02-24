@@ -2,40 +2,75 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Upload | YouTube Studio Purple</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falcon - Upload Studio</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="upload_specific.css">
+    <!-- Icones via FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
 </head>
-<body class="upload-body">
-    <div class="upload-container">
-        <div class="upload-header">
-            <h2>Importer des vidéos</h2>
-            <i class="fas fa-times close-btn"></i>
-        </div>
-        
-        <div class="upload-area" id="drop-zone">
-            <div class="pulse-circle">
-                <i class="fas fa-cloud-upload-alt"></i>
+<body>
+    <!-- Barre de navigation (Identique à ton accueil) -->
+    <header class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-bars"></i>
+            <div class="logo">
+                <i class="fab fa-youtube"></i>
+                <span>falcon</span>
             </div>
-            <h3>Glissez-déposez des fichiers vidéo pour les envoyer</h3>
-            <p>Vos vidéos seront privées jusqu'à ce que vous les publiiez.</p>
-            
-            <input type="file" id="file-input" hidden>
-            <button class="select-btn" onclick="document.getElementById('file-input').click()">
-                Select your files
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Rechercher">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="mic-icon"><i class="fas fa-microphone"></i></div>
+        </div>
+        <div class="nav-right">
+            <i class="fas fa-shopping-cart icon-btn" title="Panier"></i>
+            <i class="fas fa-video"></i>
+            <i class="fas fa-bell"></i>
+            <button class="login-btn">
+                <i class="fas fa-user-circle"></i>
+                Se connecter
             </button>
         </div>
+    </header>
 
-        <div class="upload-footer">
-            <p>En consultant vos vidéos, vous acceptez les <a href="#">Conditions d'utilisation</a> de falcon.</p>
-            <div class="footer-icons">
-                <i class="fab fa-facebook"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-instagram"></i>
+    <main class="container">
+        <!-- Barre latérale (Identique à ton accueil) -->
+        <aside class="sidebar">
+            <div class="nav-item"><i class="fas fa-home"></i><span>Home</span></div>
+            <div class="nav-item active"><i class="fas fa-upload"></i><span>Upload My videos</span></div>
+            <div class="nav-item"><i class="fas fa-film"></i><span>Shorts</span></div>
+            <hr>
+            <div class="nav-item"><i class="fas fa-layer-group"></i><span>Subscriptions</span></div>
+            <div class="nav-item"><i class="fas fa-play-circle"></i><span>Vous</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>History</span></div>
+            <hr>
+            <div class="nav-item"><i class="fas fa-download"></i><span>Downloaded</span></div>
+        </aside>
+
+        <!-- Zone d'Upload Sobre (Remplace la grille) -->
+        <section class="upload-section">
+            <div class="upload-card">
+                <div class="upload-icon-container">
+                    <i class="fas fa-cloud-arrow-up"></i>
+                </div>
+                <h2>Importer des vidéos</h2>
+                <p>Glissez-déposez vos fichiers vidéo pour commencer le téléchargement</p>
+                <span>Vos vidéos resteront privées jusqu'à leur publication.</span>
+                
+                <input type="file" id="video-file" hidden>
+                <button class="upload-btn" onclick="document.getElementById('video-file').click()">
+                    SÉLECTIONNER DES FICHIERS
+                </button>
             </div>
-        </div>
-    </div>
+            
+            <div class="upload-info-footer">
+                <p>En publiant vos vidéos, vous acceptez nos conditions d'utilisation.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
-
