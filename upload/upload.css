@@ -1,149 +1,117 @@
-/* --- Style Épuré pour l'Upload Falcon --- */
+/* --- Design Ultra-Épuré Falcon (Pulsation Verte) --- */
 
 :root {
-    --accent-purple:  #40E0D0; /* Ton violet dominant */
-    --accent-light:  #40E0D0;
-    --bg-card: #1e1e1e;
+    --accent-green: #2ecc71; /* Vert éclatant pour le cercle */
+    --accent-turquoise: #40E0D0; /* On garde ton turquoise pour le bouton */
     --text-main: #ffffff;
     --text-dim: #aaaaaa;
-    --border-color: #333333;
 }
 
+/* Conteneur invisible sans boîtes */
 .upload-container {
-    background: var(--bg-card);
+    background: transparent; 
     text-align: center;
-    
-    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
     font-family: 'Roboto', sans-serif;
-    
+    border: none;
+    box-shadow: none;
 }
 
-/* Header */
 .upload-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    border-bottom: 1px solid var(--border-color);
+    justify-content: center;
+    padding: 20px;
+    border: none;
 }
 
 .upload-header h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.5rem;
     color: var(--text-main);
 }
 
-.close-btn {
-    color: var(--text-dim);
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: color 0.2s;
-}
-
-.close-btn:hover {
-    color: var(--accent-purple);
-}
-
-/* Zone d'Upload Centrale */
 .upload-area {
-    padding: 60px 40px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     gap: 15px;
 }
 
-/* Icône de téléchargement avec animation de pulsation */
+/* LE CERCLE PULSANT EN VERT */
 .pulse-circle {
-    width: 90px;
-    height: 90px;
-    background: rgba(98, 0, 234, 0.1);
+    width: 100px;
+    height: 100px;
+    background: rgba(46, 204, 113, 0.2); /* Fond vert transparent */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
-    animation: soft-pulse 2s infinite ease-in-out;
+    margin-bottom: 20px;
+    /* L'animation utilise maintenant l'ombre verte */
+    animation: green-pulse 2s infinite ease-in-out;
 }
 
 .pulse-circle i {
-    font-size: 35px;
-    color: var(--accent-purple);
+    font-size: 40px;
+    color: var(--accent-green); /* L'icône devient verte aussi */
 }
 
 .upload-area h3 {
-    font-size: 1.1rem;
-    font-weight: 400;
+    font-size: 1.2rem;
     color: var(--text-main);
 }
 
 .upload-area p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-dim);
-    margin-bottom: 10px;
 }
 
-/* Bouton Sélectionner */
+/* Bouton Sélectionner (Turquoise pour le rappel du thème) */
 .select-btn {
-    background: var(--accent-purple);
-    color: white;
+    background: var(--accent-turquoise);
+    color: #000;
     border: none;
-    padding: 12px 28px;
-    border-radius: 4px;
+    padding: 12px 30px;
+    border-radius: 30px;
     font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
+    transition: 0.3s;
+    margin-top: 15px;
 }
 
 .select-btn:hover {
-    background: var(--accent-light);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(98, 0, 234, 0.3);
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
-/* Footer */
+/* Footer sans boîte */
 .upload-footer {
-    padding: 25px;
-    background: #181818;
-    text-align: center;
-}
-
-.upload-footer p {
-    font-size: 0.75rem;
-    color: #777;
-    margin-bottom: 15px;
-}
-
-.upload-footer a {
-    color: var(--accent-light);
-    text-decoration: none;
+    padding: 40px 20px;
+    background: transparent;
 }
 
 .footer-icons {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    font-size: 1.1rem;
+    gap: 30px;
+    font-size: 1.3rem;
     color: var(--text-dim);
 }
 
-.footer-icons i {
-    cursor: pointer;
-    transition: transform 0.2s, color 0.2s;
-}
-
-.footer-icons i:hover {
-    color: var(--accent-purple);
-    transform: scale(1.2);
-}
-
-/* Animations */
-@keyframes soft-pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(98, 0, 234, 0.4); }
-    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(98, 0, 234, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(98, 0, 234, 0); }
+/* ANIMATION DE PULSATION VERTE */
+@keyframes green-pulse {
+    0% { 
+        transform: scale(0.95); 
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); 
+    }
+    70% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 25px rgba(46, 204, 113, 0); 
+    }
+    100% { 
+        transform: scale(0.95); 
+        box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); 
+    }
 }
