@@ -19,7 +19,6 @@
 .upload-container {
     background: transparent; 
     text-align: center;
-    flex-direction: column;
     align-items: center;
     border: none;
     box-shadow: none;
@@ -36,8 +35,7 @@
 }
 
 .upload-area {
-    display: flex;
-    flex-direction: column;
+   
     align-items: center;
     gap: 15px;
 }
@@ -48,11 +46,11 @@
     height: 110px;
     background: rgba(46, 204, 113, 0.15);
     border-radius: 50%;
-    display: flex;
+    
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    animation: green-pulse 2s infinite ease-in-out;
+    animation: green-pulse 6s infinite ease-in-out;
 }
 
 .pulse-circle i {
