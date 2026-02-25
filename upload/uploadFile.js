@@ -24,6 +24,7 @@ async function UploadFile(file) {
         
         // On extrait l'URL magique générée par AWS
         const { uploadUrl } = await authResponse.json();
+        
 
 
         // //---------------------------------------------------------
