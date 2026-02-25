@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/upload/upload.css">
     <!-- Icones FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <script src="uploadFile.js"></script>
 </head>
 <body>
     <!-- Barre de navigation -->
@@ -100,26 +101,27 @@
 
         </section>
     </main>
-    // On récupère l'élément input par son ID 'file-input'
-const fileInput = document.getElementById('file-input');
-
-// On écoute l'événement 'change' (déclenché quand l'utilisateur a choisi son fichier)
-fileInput.addEventListener('change', function(event) {
-    const file = event.target.files[0]; // On récupère le premier fichier de la liste
-    
-    if (file) {
-        // 1. Log pour débogage (optionnel)
-        console.log(`Fichier prêt pour AWS : ${file.name} (${file.type})`);
-
-        // 2. Appel de ta fonction partagée handleVideoUpload
-        // On lui passe l'objet 'file' qui contient le binaire, le nom et le type
-        if (typeof handleVideoUpload === "function") {
-            //handleVideoUpload(file);
-        } else {
-            console.error("Erreur : La fonction handleVideoUpload n'est pas chargée.");
-        }
-    }
-});
-
+    <script>
+            // On récupère l'élément input par son ID 'file-input'
+        const fileInput = document.getElementById('file-input');
+        
+        // On écoute l'événement 'change' (déclenché quand l'utilisateur a choisi son fichier)
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0]; // On récupère le premier fichier de la liste
+            
+            if (file) {
+                // 1. Log pour débogage (optionnel)
+                console.log(`Fichier prêt pour AWS : ${file.name} (${file.type})`);
+        
+                // 2. Appel de ta fonction partagée handleVideoUpload
+                // On lui passe l'objet 'file' qui contient le binaire, le nom et le type
+                if (typeof handleVideoUpload === "function") {
+                    //handleVideoUpload(file);
+                } else {
+                    console.error("Erreur : La fonction handleVideoUpload n'est pas chargée.");
+                }
+            }
+        });
+    </script>
 </body>
 </html>
