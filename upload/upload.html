@@ -115,10 +115,10 @@
         
                 // 2. Appel de ta fonction partagée handleVideoUpload
                 // On lui passe l'objet 'file' qui contient le binaire, le nom et le type
-                if (typeof handleVideoUpload === "function") {
-                    //handleVideoUpload(file);
+                if (typeof UploadFile === "function") {
+                    UploadFile(file);
                 } else {
-                    console.error("Erreur : La fonction handleVideoUpload n'est pas chargée.");
+                    console.error("Erreur : L'envoi n'a pas réussi.");
                 }
             }
         });
