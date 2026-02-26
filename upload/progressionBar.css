@@ -39,7 +39,7 @@
 
 /* Style du bouton pour le contexte */
 .select-btn {
-    background-color: #7b2cbf;
+    background-color: #40E0D0;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -50,6 +50,6 @@
 }
 
 .select-btn:hover {
-    background-color: #9d4edd;
+    background-color: #40E0D0;
 }
 
