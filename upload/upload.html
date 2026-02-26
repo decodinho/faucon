@@ -123,7 +123,7 @@
                 // 2. Appel de ta fonction partagée handleVideoUpload
                 // On lui passe l'objet 'file' qui contient le binaire, le nom et le type
                 if (typeof UploadFile === "function") {
-                    //UploadFile(file);
+                    UploadFile(file);
                     console.error("Réussite.");
                 } else {
                     console.error("Erreur : L'envoi n'a pas réussi.");
