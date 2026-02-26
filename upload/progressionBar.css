@@ -19,7 +19,7 @@
 /* Le fond de la barre (le rail) */
 .progress-track {
     width: 100%;
-    background-color: #40E0D0;
+    background-color: black;
     height: 8px;
     border-radius: 10px;
     overflow: hidden;
