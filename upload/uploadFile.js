@@ -5,12 +5,16 @@
 async function UploadFile(file) {
     // URL de ton API Gateway qui génère la signature
     const API_ENDPOINT = "https://f8jstiv8yl.execute-api.us-east-1.amazonaws.com/dev/collectPresigned";
+    const container = document.getElementById('progressContainer');
+    const bar = document.getElementById('progressBar');
+    const statusText = document.getElementById('statusText');
 
     try {
         // //---------------------------------------------------------
         // // ÉTAPE 1 : RÉCUPÉRATION DE L'AUTORISATION (TICKET S3)
         // // On demande au backend une URL signée pour ce fichier précis.
         // //---------------------------------------------------------
+        if (container) container.style.display = 'block';
         const authResponse = await fetch(API_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -77,6 +81,13 @@ async function UploadFile(file) {
 
     } catch (error) {
         console.error("Erreur lors de l'upload :", error.message);
+    }
+}
+
+// Fonction utilitaire pour lier l'input au script
+function handleFile(files) {
+    if (files.length > 0) {
+        UploadFile(files[0]);
     }
 }
 
