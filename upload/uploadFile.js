@@ -4,7 +4,7 @@
  */
 async function UploadFile(file) {
     // URL de ton API Gateway qui génère la signature
-    const API_ENDPOINT = "https://f8jstiv8yl.execute-api.us-east-1.amazonaws.com";
+    const API_ENDPOINT = "https://f8jstiv8yl.execute-api.us-east-1.amazonaws.com/dev/collectPresigned";
 
     try {
         // //---------------------------------------------------------
