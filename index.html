@@ -26,20 +26,35 @@
         <React.Fragment>
           {produits.map((p, index) => (
             <div className="video-card" key={p.PK || index}>
-              <div 
+             
+             <div 
                   className="thumbnail" 
                   style={{ 
-                    backgroundImage: `url("${p.thumbnail_url || p.image}")`, // Ajout de guillemets internes ""
+                    backgroundImage: `url("${p.thumbnail_url || p.image}")`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center'
+                    backgroundPosition: 'center',
+                    position: 'relative', /* Indispensable pour que la durée se place bien en bas à droite */
+                    minHeight: '180px'    /* Force une hauteur pour que l'image soit visible */
                   }}
+                >
+                  {/* Le contenu (la durée) doit être ici, après la fermeture du style et du > */}
+                  {p.duration_seconds && (
+                    <span className="duration" style={{
+                      position: 'absolute', 
+                      bottom: '8px', 
+                      right: '8px', 
+                      background: 'rgba(0,0,0,0.8)', 
+                      color: 'white', 
+                      padding: '2px 5px', 
+                      borderRadius: '4px', 
+                      fontSize: '12px'
+                    }}>
+                      {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
+                    </span>
+                  )}
+                </div>
+
               
-                {p.duration_seconds && (
-                  <span className="duration" style={{position: 'absolute', bottom: '8px', right: '8px', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '2px 5px', borderRadius: '4px', fontSize: '12px'}}>
-                    {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
-                  </span>
-                )}
-              ></div>
               <div className="video-info">
                 <div className="channel-icon"></div>
                 <div className="text-content">
