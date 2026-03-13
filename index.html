@@ -3,145 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Falcon Purple Edition</title>
+    <title>YouTube Purple Edition</title>
     <link rel="stylesheet" href="index.css">
+    <!-- Icones via FontAwesome pour le réalisme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
-    <!-- Scripts React -->
-    <script src="https://unpkg.com"></script>
-    <script src="https://unpkg.com"></script>
-    <script src="https://unpkg.com"></script>
 </head>
 <body>
-    <div id="root"></div>
+    <!-- Barre de navigation -->
+    <header class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-bars"></i>
+            <div class="logo">
+                <i class="fab fa-youtube"></i>
+                <span>falcon</span>
+            </div>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Rechercher">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="mic-icon"><i class="fas fa-microphone"></i></div>
+        </div>
+        <div class="nav-right">
+            <i class="fas fa-video"></i>
+            <i class="fas fa-bell"></i>
+            <div class="user-avatar"></div>
+            <!-- Dans la section nav-right -->
+        <div class="nav-right">
+            <i class="fas fa-shopping-cart icon-btn" title="Panier"></i>
+            <i class="fas fa-video"></i>
+            <i class="fas fa-bell"></i>
+            <!-- Bouton de Connexion -->
+            <button class="login-btn">
+                <i class="fas fa-user-circle"></i>
+                Se connecter
+            </button>
+        </div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+<!-- Exemple d'une carte vidéo avec partage intégré -->
 
-        function App() {
-            const [choix, setChoix] = useState("All");
-            const [videos, setVideos] = useState([]);
-            const [loading, setLoading] = useState(true);
+        </div>
+    </header>
 
-            // Liste des catégories pour ton menu
-            const categories = ["All", "Sport", "Learning", "Music", "News", "Cuisine"];
+    <main class="container">
+        <!-- Barre latérale -->
+        <aside class="sidebar">
+            <div class="nav-item active"><i class="fas fa-home"></i><span>Home</span></div>
+            <div class="nav-item"><i class="fas fa-film"></i><span>Upload My videos</span></div>
+            <div class="nav-item"><i class="fas fa-film"></i><span>Shorts</span></div>
+            <hr>
+            <div class="nav-item"><i class="fas fa-layer-group"></i><span>Subscriptions</span></div>
+            <div class="nav-item"><i class="fas fa-play-circle"></i><span>Vous</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>History</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Commented videos</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Liked videos</span></div>
+            <hr>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Watch Later</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with firends</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with Family</span></div>
+            <div class="nav-item"><i class="fas fa-history"></i><span>Downloaded</span></div>
+        </aside>
 
-            useEffect(() => {
-                setLoading(true);
-                // On suit ta logique d'API avec paramètre de catégorie
-                // Remplace par ton URL réelle
-                const url = `https://ton-api.execute-api.us-east-1.amazonaws.com{choix}`;
-
-                fetch(url)
-                    .then(res => res.json())
-                    .then(data => {
-                        let videosVraies = typeof data === 'string' ? JSON.parse(data) : data;
-                        if (videosVraies && !Array.isArray(videosVraies)) {
-                            videosVraies = [videosVraies];
-                        }
-                        setVideos(videosVraies || []);
-                        setLoading(false);
-                    })
-                    .catch(err => {
-                        console.error("Erreur API :", err);
-                        setLoading(false);
-                    });
-            }, [choix]); // Se déclenche sans clic (au début) et à chaque changement de 'choix'
-
-            return (
-                <div className="app-wrapper">
-                    {/* BARRE DE NAVIGATION */}
-                    <header className="navbar">
-                        <div className="nav-left">
-                            <i className="fas fa-bars"></i>
-                            <div className="logo">
-                                <i className="fab fa-youtube"></i>
-                                <span>falcon</span>
-                            </div>
-                        </div>
-                        <div className="nav-center">
-                            <div className="search-box">
-                                <input type="text" placeholder="Rechercher une vidéo..." />
-                                <button><i className="fas fa-search"></i></button>
-                            </div>
-                            <div className="mic-icon"><i className="fas fa-microphone"></i></div>
-                        </div>
-                        <div className="nav-right">
-                            <i className="fas fa-video"></i>
-                            <i className="fas fa-bell"></i>
-                            <button className="login-btn" onClick={() => window.location.href='connexion.html'}>
-                                <i className="fas fa-user-circle"></i> Se connecter
-                            </button>
-                        </div>
-                    </header>
-
-                    <main className="container">
-                        {/* BARRE LATÉRALE */}
-                        <aside className="sidebar">
-                            <div className="nav-item active"><i className="fas fa-home"></i><span>Home</span></div>
-                            <div className="nav-item"><i className="fas fa-upload"></i><span>Upload</span></div>
-                            <div className="nav-item"><i className="fas fa-bolt"></i><span>Shorts</span></div>
-                            <hr />
-                            <div className="nav-item"><i className="fas fa-history"></i><span>History</span></div>
-                        </aside>
-
-                        {/* SECTION PRINCIPALE */}
-                        <section className="main-content">
-                            {/* FILTRE DE CATÉGORIES */}
-                            <div className="category-wrapper">
-                                {categories.map(cat => (
-                                    <div 
-                                        key={cat}
-                                        className={`category-item ${choix === cat ? 'active' : ''}`}
-                                        onClick={() => setChoix(cat)}
-                                    >
-                                        <span>{cat}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* GRILLE DE VIDÉOS */}
-                            <div className="video-grid">
-                                {loading ? (
-                                    <p>Chargement des vidéos...</p>
-                                ) : videos.length > 0 ? (
-                                    videos.map((video) => (
-                                        <div className="video-card" key={video.PK || video.id}>
-                                            <div 
-                                                className="thumbnail" 
-                                                style={{ 
-                                                    backgroundImage: `url(${video.thumbnail_url || 'https://via.placeholder.com'})`,
-                                                    backgroundSize: 'cover',
-                                                    backgroundPosition: 'center'
-                                                }}
-                                            >
-                                                {video.duration_seconds && (
-                                                    <span className="duration">
-                                                        {Math.floor(video.duration_seconds / 60)}:{(video.duration_seconds % 60).toString().padStart(2, '0')}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="video-info">
-                                                <div className="channel-icon"></div>
-                                                <div className="text-content">
-                                                    <h3>{video.title}</h3>
-                                                    <p>{video.uploader_id?.replace('USER#', '') || 'Falcon Creator'}</p>
-                                                    <p>{video.category} • {new Date(video.created_at * 1000).toLocaleDateString()}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p>Aucune vidéo trouvée pour "{choix}"</p>
-                                )}
-                            </div>
-                        </section>
-                    </main>
+        <!-- Grille de vidéos -->
+        <section class="video-grid">
+            <!-- À insérer au début de la balise <section class="video-grid"> -->
+                <div class="category-wrapper">
+                    <div class="category-item active">
+                        <span class="dot dot-red"></span>
+                        <span>All</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-green"></span>
+                        <span>Live</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-blue"></span>
+                        <span>News</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-orange"></span>
+                        <span>Sport</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-purple"></span>
+                        <span>cuisisne</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-pink"></span>
+                        <span>Watched</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-brown"></span>
+                        <span>Music</span>
+                    </div>
+                    <div class="category-item">
+                        <span class="dot dot-beige"></span>
+                        <span>Learning</span>
+                    </div>
                 </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<App />);
-    </script>
+<!-- Exemple de carte vidéo (à multiplier) -->
+            <div class="video-card">
+                <div class="thumbnail"></div>
+                <div class="video-info">
+                    <div class="channel-icon"></div>
+                    <div class="text-content">
+                        <h3>Apprendre le CSS moderne avec style</h3>
+                        <p>Code Design • 120k vues • il y a 2 heures</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Répétez cette div 7-8 fois pour remplir la page -->
+        </section>
+    </main>
 </body>
 </html>
