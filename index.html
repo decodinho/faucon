@@ -33,13 +33,13 @@
                     backgroundSize: 'cover',
                     backgroundPosition: 'center'
                   }}
-                >
+              
                 {p.duration_seconds && (
                   <span className="duration" style={{position: 'absolute', bottom: '8px', right: '8px', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '2px 5px', borderRadius: '4px', fontSize: '12px'}}>
                     {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
                   </span>
                 )}
-              </div>
+              ></div>
               <div className="video-info">
                 <div className="channel-icon"></div>
                 <div className="text-content">
