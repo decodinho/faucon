@@ -13,6 +13,86 @@
 
 </head>
 <body>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function ListeProduits({ produits }) { /*c'est une fonction qui recupere une liste d'element venant de la bdd et les transforme en string*/
+      let listeArticles = produits;
+      
+      if (typeof produits === 'string') {
+        try {
+          listeArticles = JSON.parse(produits);
+        } catch (e) {
+          console.error("Erreur de parsing JSON", e);
+          listeArticles = [];
+        }
+      }
+    
+      if (!Array.isArray(listeArticles) || listeArticles.length === 0) {
+        return <p>Aucune vidéo trouvée dans cette categorie</p>;
+      }
+
+  return (
+  <div className="video-grid">
+    {produits.map((p, index) => (
+      <div className="video-card" key={p.PK || index}>
+        {/* Conteneur Image avec durée superposée */}
+        <div className="thumbnail-container">
+          <img 
+            src={p.thumbnail_url || p.image} 
+            alt={p.title || p.detailArticle} 
+            className="video-thumbnail"
+          />
+          {p.duration_seconds && (
+            <span className="video-duration">
+              {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
+            </span>
+          )}
+        </div>
+
+        {/* Conteneur Infos (Titre, Auteur, Vues) */}
+        <div className="video-info">
+          <div className="channel-icon"></div>
+          <div className="text-content">
+            <h3 className="video-title">{p.title || "Titre de la vidéo"}</h3>
+            <p className="video-meta">
+              {p.uploader_id?.replace('USER#', '') || "Falcon Creator"}
+            </p>
+            <p className="video-stats">
+              {p.category} • {new Date(p.created_at * 1000).toLocaleDateString()}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+
+    function App() {
+      const [choix, setChoix] = useState("All");
+      const [produits, setProduits] = useState([]);
+
+      useEffect(() => {
+        fetch(`https://l1upgx0w59.execute-api.us-east-1.amazonaws.com/dev/readArticles?category=${choix}`)
+          .then(res => res.json())
+          .then(data => {
+            let articlesVrais = typeof data === 'string' ? JSON.parse(data) : data;
+            if (articlesVrais && !Array.isArray(articlesVrais)) {
+              articlesVrais = [articlesVrais];
+            }
+            setProduits(articlesVrais);
+          })
+          .catch(err => console.error("Erreur :", err));
+      }, [choix]);
+
+     
+    
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+
+    
     <!-- Barre de navigation -->
     <header class="navbar">
         <div class="nav-left">
