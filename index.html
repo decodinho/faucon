@@ -61,7 +61,7 @@
 
       useEffect(() => {
         // Correction de l'URL avec le paramètre de catégorie
-        const url = `https://l1upgx0w59.execute-api.us-east-1.amazonaws.com{choix}`;
+        const url = `https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com/dev/read?category=${choix}`;
         
         fetch(url)
           .then(res => res.json())
