@@ -1,204 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </title></title>
+  <title>Falcon Purple Edition</title>
   <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-
 </head>
 <body>
+  <div id="root"></div>
+
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    function ListeProduits({ produits }) { /*c'est une fonction qui recupere une liste d'element venant de la bdd et les transforme en string*/
-      let listeArticles = produits;
-      
-      if (typeof produits === 'string') {
-        try {
-          listeArticles = JSON.parse(produits);
-        } catch (e) {
-          console.error("Erreur de parsing JSON", e);
-          listeArticles = [];
-        }
-      }
-    
-      if (!Array.isArray(listeArticles) || listeArticles.length === 0) {
-        return <p>Aucune vidéo trouvée dans cette categorie</p>;
+    // Composant pour l'affichage de la grille
+    function ListeProduits({ produits }) {
+      if (!Array.isArray(produits) || produits.length === 0) {
+        return <p style={{color: "white", padding: "20px"}}>Aucune vidéo trouvée dans cette catégorie.</p>;
       }
 
-  return (
-  <div className="video-grid">
-    {produits.map((p, index) => (
-      <div className="video-card" key={p.PK || index}>
-        {/* Conteneur Image avec durée superposée */}
-        <div className="thumbnail-container">
-          <img 
-            src={p.thumbnail_url || p.image} 
-            alt={p.title || p.detailArticle} 
-            className="video-thumbnail"
-          />
-          {p.duration_seconds && (
-            <span className="video-duration">
-              {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
-            </span>
-          )}
-        </div>
-
-        {/* Conteneur Infos (Titre, Auteur, Vues) */}
-        <div className="video-info">
-          <div className="channel-icon"></div>
-          <div className="text-content">
-            <h3 className="video-title">{p.title || "Titre de la vidéo"}</h3>
-            <p className="video-meta">
-              {p.uploader_id?.replace('USER#', '') || "Falcon Creator"}
-            </p>
-            <p className="video-stats">
-              {p.category} • {new Date(p.created_at * 1000).toLocaleDateString()}
-            </p>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-);
-
+      return (
+        <React.Fragment>
+          {produits.map((p, index) => (
+            <div className="video-card" key={p.PK || index}>
+              <div 
+                className="thumbnail" 
+                style={{ 
+                  backgroundImage: `url(${p.thumbnail_url || p.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  position: 'relative'
+                }}
+              >
+                {p.duration_seconds && (
+                  <span className="duration" style={{position: 'absolute', bottom: '8px', right: '8px', background: 'rgba(0,0,0,0.8)', color: 'white', padding: '2px 5px', borderRadius: '4px', fontSize: '12px'}}>
+                    {Math.floor(p.duration_seconds / 60)}:{(p.duration_seconds % 60).toString().padStart(2, '0')}
+                  </span>
+                )}
+              </div>
+              <div className="video-info">
+                <div className="channel-icon"></div>
+                <div className="text-content">
+                  <h3>{p.title || "Titre de la vidéo"}</h3>
+                  <p>{p.uploader_id?.replace('USER#', '') || "Falcon Creator"} • {p.category}</p>
+                  <p>{new Date(p.created_at * 1000).toLocaleDateString()}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </React.Fragment>
+      );
+    }
 
     function App() {
       const [choix, setChoix] = useState("All");
-      const [produits, setProduits] = useState([]);
+      const [videos, setVideos] = useState([]);
 
       useEffect(() => {
-        fetch(`https://l1upgx0w59.execute-api.us-east-1.amazonaws.com/dev/readArticles?category=${choix}`)
+        // Correction de l'URL avec le paramètre de catégorie
+        const url = `https://l1upgx0w59.execute-api.us-east-1.amazonaws.com{choix}`;
+        
+        fetch(url)
           .then(res => res.json())
           .then(data => {
-            let articlesVrais = typeof data === 'string' ? JSON.parse(data) : data;
-            if (articlesVrais && !Array.isArray(articlesVrais)) {
-              articlesVrais = [articlesVrais];
-            }
-            setProduits(articlesVrais);
+            let dataVraie = typeof data === 'string' ? JSON.parse(data) : data;
+            if (dataVraie && !Array.isArray(dataVraie)) dataVraie = [dataVraie];
+            setVideos(dataVraie || []);
           })
-          .catch(err => console.error("Erreur :", err));
+          .catch(err => console.error("Erreur BDD:", err));
       }, [choix]);
 
-     
-    
+      const categories = [
+        { name: "All", color: "red" },
+        { name: "Live", color: "green" },
+        { name: "News", color: "blue" },
+        { name: "Sport", color: "orange" },
+        { name: "Cuisine", color: "purple" },
+        { name: "Watched", color: "pink" },
+        { name: "Music", color: "brown" },
+        { name: "Learning", color: "beige" }
+      ];
+
+      return (
+        <div className="app-container">
+          <header className="navbar">
+            <div className="nav-left">
+              <i className="fas fa-bars"></i>
+              <div className="logo"><i className="fab fa-youtube"></i><span>falcon</span></div>
+            </div>
+            <div className="nav-center">
+              <div className="search-box">
+                <input type="text" placeholder="Rechercher" />
+                <button><i className="fas fa-search"></i></button>
+              </div>
+              <div className="mic-icon"><i className="fas fa-microphone"></i></div>
+            </div>
+            <div className="nav-right">
+              <i className="fas fa-shopping-cart icon-btn"></i>
+              <i className="fas fa-video"></i>
+              <i className="fas fa-bell"></i>
+              <button className="login-btn"><i className="fas fa-user-circle"></i> Se connecter</button>
+            </div>
+          </header>
+
+          <main className="container">
+            <aside className="sidebar">
+              <div className="nav-item active"><i className="fas fa-home"></i><span>Home</span></div>
+              <div className="nav-item"><i className="fas fa-film"></i><span>Upload</span></div>
+              <div className="nav-item"><i className="fas fa-bolt"></i><span>Shorts</span></div>
+              <hr/>
+              <div className="nav-item"><i className="fas fa-history"></i><span>History</span></div>
+            </aside>
+
+            <section className="video-grid">
+              <div className="category-wrapper">
+                {categories.map((cat) => (
+                  <div 
+                    key={cat.name}
+                    className={`category-item ${choix === cat.name ? "active" : ""}`}
+                    onClick={() => setChoix(cat.name)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <span className={`dot dot-${cat.color}`}></span>
+                    <span>{cat.name}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <ListeProduits produits={videos} />
+            </section>
+          </main>
+        </div>
+      );
+    }
+
     const root = ReactDOM.createRoot(document.getElementById("root"));
     root.render(<App />);
   </script>
-
-    
-    <!-- Barre de navigation -->
-    <header class="navbar">
-        <div class="nav-left">
-            <i class="fas fa-bars"></i>
-            <div class="logo">
-                <i class="fab fa-youtube"></i>
-                <span>falcon</span>
-            </div>
-        </div>
-        <div class="nav-center">
-            <div class="search-box">
-                <input type="text" placeholder="Rechercher">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-            <div class="mic-icon"><i class="fas fa-microphone"></i></div>
-        </div>
-        <div class="nav-right">
-            <i class="fas fa-video"></i>
-            <i class="fas fa-bell"></i>
-            <div class="user-avatar"></div>
-            <!-- Dans la section nav-right -->
-        <div class="nav-right">
-            <i class="fas fa-shopping-cart icon-btn" title="Panier"></i>
-            <i class="fas fa-video"></i>
-            <i class="fas fa-bell"></i>
-            <!-- Bouton de Connexion -->
-            <button class="login-btn">
-                <i class="fas fa-user-circle"></i>
-                Se connecter
-            </button>
-        </div>
-
-<!-- Exemple d'une carte vidéo avec partage intégré -->
-
-        </div>
-    </header>
-
-    <main class="container">
-        <!-- Barre latérale -->
-        <aside class="sidebar">
-            <div class="nav-item active"><i class="fas fa-home"></i><span>Home</span></div>
-            <div class="nav-item"><i class="fas fa-film"></i><span>Upload My videos</span></div>
-            <div class="nav-item"><i class="fas fa-film"></i><span>Shorts</span></div>
-            <hr>
-            <div class="nav-item"><i class="fas fa-layer-group"></i><span>Subscriptions</span></div>
-            <div class="nav-item"><i class="fas fa-play-circle"></i><span>Vous</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>History</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Commented videos</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Liked videos</span></div>
-            <hr>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch Later</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with firends</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Watch with Family</span></div>
-            <div class="nav-item"><i class="fas fa-history"></i><span>Downloaded</span></div>
-        </aside>
-
-        <!-- Grille de vidéos -->
-        <section class="video-grid">
-            <!-- À insérer au début de la balise <section class="video-grid"> -->
-                <div class="category-wrapper">
-                    <div class="category-item active">
-                        <span class="dot dot-red"></span>
-                        <span>All</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-green"></span>
-                        <span>Live</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-blue"></span>
-                        <span>News</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-orange"></span>
-                        <span>Sport</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-purple"></span>
-                        <span>cuisisne</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-pink"></span>
-                        <span>Watched</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-brown"></span>
-                        <span>Music</span>
-                    </div>
-                    <div class="category-item">
-                        <span class="dot dot-beige"></span>
-                        <span>Learning</span>
-                    </div>
-                </div>
-<!-- Exemple de carte vidéo (à multiplier) -->
-            <div class="video-card">
-                <div class="thumbnail"></div>
-                <div class="video-info">
-                    <div class="channel-icon"></div>
-                    <div class="text-content">
-                        <h3>Apprendre le CSS moderne avec style</h3>
-                        <p>Code Design • 120k vues • il y a 2 heures</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Répétez cette div 7-8 fois pour remplir la page -->
-        </section>
-    </main>
 </body>
 </html>
