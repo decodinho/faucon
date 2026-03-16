@@ -4,25 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Falcon Stream Edition</title>
-  <!-- 1. LIENS CORRECTS POUR LES ICÔNES ET SCRIPTS -->
+  
+  <!-- Chargement des icônes et des bibliothèques nécessaires -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
   <script src="https://unpkg.com"></script>
   <script src="https://unpkg.com"></script>
   <script src="https://unpkg.com"></script>
-  
+
   <style>
     :root {
       --jw-bg: #1a1a1a;
       --jw-card-bg: #ffffff;
-      --turquoise: #40E0D0;
+      --turquoise: #40E0D0; /* Couleur demandée */
     }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--jw-bg);
+      color: white;
     }
 
+    /* Barre de navigation avec les 3 boutons à droite */
     .navbar {
       background-color: var(--turquoise);
       color: white;
@@ -33,49 +36,57 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
-    .logo-section { display: flex; align-items: center; gap: 15px; font-weight: bold; font-size: 1.2rem; }
+    .logo-section { display: flex; align-items: center; gap: 15px; font-weight: bold; font-size: 1.3rem; }
+    
     .nav-right { display: flex; align-items: center; gap: 12px; }
 
+    /* Design des boutons de la navbar */
     .nav-btn {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       color: white;
-      padding: 6px 14px;
+      padding: 7px 15px;
       border-radius: 4px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 0.85rem;
-      transition: all 0.2s ease;
+      transition: 0.2s;
     }
 
     .nav-btn:hover { background: white; color: var(--turquoise); }
 
     .main-content { padding: 20px 0; }
-    .category-section { margin-bottom: 30px; }
     .category-header { padding: 0 40px; margin-bottom: 15px; }
-    .category-header h2 { font-size: 1.4rem; color: var(--turquoise); margin: 0; }
+    .category-header h2 { font-size: 1.5rem; color: var(--turquoise); margin: 0; }
 
-    .video-gallery { display: flex; overflow-x: auto; padding: 10px 40px; gap: 20px; }
+    .video-gallery { 
+      display: flex; 
+      overflow-x: auto; 
+      padding: 10px 40px; 
+      gap: 20px; 
+      scrollbar-width: thin; 
+    }
+    
+    /* Scrollbar personnalisée */
     .video-gallery::-webkit-scrollbar { height: 6px; }
-    .video-gallery::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+    .video-gallery::-webkit-scrollbar-thumb { background: #555; border-radius: 10px; }
 
     .video-card {
       min-width: 260px;
       background: var(--jw-card-bg);
-      border-radius: 4px;
+      border-radius: 5px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      color: black;
     }
 
-    .thumbnail-container { width: 100%; height: 146px; background: #000; }
-    .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
-    .video-info { padding: 12px; color: black; }
-    .video-info h3 { font-size: 0.9rem; margin: 0; height: 2.5em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .thumbnail { width: 100%; height: 146px; background: #000; object-fit: cover; }
+    .video-info { padding: 12px; }
+    .video-info h3 { font-size: 0.95rem; margin: 0; height: 2.4em; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -89,11 +100,11 @@
       const [loading, setLoading] = useState(true);
 
       useEffect(() => {
-        // 2. URL DE L'API CORRIGÉE
+        // Lien API complet
         fetch(`https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com{categoryKey}`)
           .then(res => res.json())
           .then(data => {
-            let parsed = typeof data === 'string' ? JSON.parse(data) : data;
+            const parsed = typeof data === 'string' ? JSON.parse(data) : data;
             setVideos(Array.isArray(parsed) ? parsed : [parsed]);
             setLoading(false);
           })
@@ -103,14 +114,12 @@
       if (!loading && videos.length === 0) return null;
 
       return (
-        <section className="category-section">
+        <section style={{marginBottom: '40px'}}>
           <div className="category-header"><h2>{title}</h2></div>
           <div className="video-gallery">
-            {loading ? <p style={{color:'white'}}>Chargement...</p> : videos.map((v, i) => (
+            {loading ? <p>Chargement...</p> : videos.map((v, i) => (
               <div className="video-card" key={i}>
-                <div className="thumbnail-container">
-                  <img src={v.thumbnail_url || v.image || "https://via.placeholder.com"} alt="" />
-                </div>
+                <img className="thumbnail" src={v.thumbnail_url || v.image || "https://via.placeholder.com"} alt="" />
                 <div className="video-info">
                   <h3>{v.title || "Vidéo Falcon"}</h3>
                 </div>
@@ -135,15 +144,17 @@
               <i className="fas fa-bars"></i>
               <span>FALCON</span>
             </div>
+            
             <div className="nav-right">
               <button className="nav-btn"><i className="fas fa-globe"></i><span>Langues</span></button>
-              <button className="nav-btn"><i className="fas fa-list-ul"></i><span>Ma playlist</span></button>
-              <button className="nav-btn"><i className="fas fa-user-circle"></i><span>Connexion</span></button>
+              <button className="nav-btn"><i className="fas fa-list"></i><span>Ma sélection</span></button>
+              <button className="nav-btn"><i className="fas fa-user"></i><span>Connexion</span></button>
             </div>
           </header>
+
           <main className="main-content">
-            <div style={{height: '200px', background: '#333', margin: '0 40px 40px 40px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white'}}>
-                <h1>Contenu à la Une</h1>
+            <div style={{height: '250px', background: '#252525', margin: '0 40px 40px 40px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #333'}}>
+                <h1 style={{color: 'white'}}>À la Une</h1>
             </div>
             {categories.map(cat => <VideoRow key={cat.id} title={cat.label} categoryKey={cat.id} />)}
           </main>
