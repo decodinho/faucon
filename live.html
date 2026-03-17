@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Falcon Live - Diffusion & Chat</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+  <link href="https://vjs.zencdn.net" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --bg: #141414;
+      --nav: #24292E;
+      --turquoise: #40E0D0;
+      --chat-bg: #1E1E1E;
+    }
+
+    body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* Header */
+    .header { background: var(--nav); padding: 10px 30px; display: flex; align-items: center; border-bottom: 1px solid var(--turquoise); }
+    .btn-back { color: white; text-decoration: none; font-size: 0.9rem; margin-right: 20px; border: 1px solid #555; padding: 5px 15px; border-radius: 4px; }
+
+    /* Layout Principal */
+    .main-layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* Zone Vidéo */
+    .video-section { flex: 3; display: flex; flex-direction: column; padding: 20px; background: #000; }
+    .video-js { width: 100% !important; height: auto !important; aspect-ratio: 16/9; border: 1px solid #333; }
+
+    /* Zone Chat */
+    .chat-section { flex: 1; background: var(--chat-bg); border-left: 1px solid #333; display: flex; flex-direction: column; min-width: 300px; }
+    .chat-header { padding: 15px; border-bottom: 1px solid #333; font-weight: bold; color: var(--turquoise); display: flex; justify-content: space-between; }
+    .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+    
+    .msg { background: #2A2A2A; padding: 8px 12px; border-radius: 6px; }
+    .msg-user { color: var(--turquoise); font-weight: bold; margin-right: 5px; }
+
+    .chat-input-area { padding: 15px; border-top: 1px solid #333; display: flex; gap: 10px; }
+    .chat-input { flex: 1; background: #2A2A2A; border: 1px solid #444; color: white; padding: 10px; border-radius: 4px; outline: none; }
+    .chat-input:focus { border-color: var(--turquoise); }
+    .btn-send { background: var(--turquoise); border: none; color: var(--nav); padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour</a>
+    <h2 style="margin:0; font-size:1.2rem; color:var(--turquoise);">🔴 LIVE : Session Gaming Falcon</h2>
+  </header>
+
+  <div class="main-layout">
+    <!-- Lecteur Vidéo -->
+    <div class="video-section">
+      <video id="amazon-ivs-player" class="video-js vjs-default-skin vjs-big-play-centered" controls playsinline></video>
+      <div style="margin-top:15px;">
+        <span style="background:red; padding:2px 8px; border-radius:3px; font-size:0.7rem; font-weight:bold;">EN DIRECT</span>
+        <span style="margin-left:10px; color:#aaa;"><i class="fas fa-eye"></i> 1,240 spectateurs</span>
+      </div>
+    </div>
+
+    <!-- Fenêtre de Chat -->
+    <div class="chat-section">
+      <div class="chat-header">
+        <span>CHAT EN DIRECT</span>
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="chat-messages" id="chat-box">
+        <div class="msg"><span class="msg-user">Admin:</span> Bienvenue sur le Live Falcon !</div>
+        <div class="msg"><span class="msg-user">Marc:</span> Trop hâte de voir ça !</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chat-input" class="chat-input" placeholder="Envoyer un message...">
+        <button class="btn-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://vjs.zencdn.net"></script>
+  <script>
+    // 1. Initialisation du Player IVS
+    const player = videojs('amazon-ivs-player', {
+        autoplay: true,
+        sources: [{
+            src: 'https://760233486324.us-east-1.playback.live-video.net',
+            type: 'application/x-mpegURL'
+        }]
+    });
+
+    // 2. Simulation du Chat
+    function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const box = document.getElementById('chat-box');
+        if (input.value.trim() !== "") {
+            const div = document.createElement('div');
+            div.className = 'msg';
+            div.innerHTML = `<span class="msg-user">Moi:</span> ${input.value}`;
+            box.appendChild(div);
+            input.value = "";
+            box.scrollTop = box.scrollHeight;
+        }
+    }
+
+    // Envoi avec la touche Entrée
+    document.getElementById('chat-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+  </script>
+</body>
+</html>
