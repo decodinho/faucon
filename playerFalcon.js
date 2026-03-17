@@ -1,4 +1,10 @@
 window.lancerStreaming = function(url) {
+    // Vérifie si la bibliothèque est prête
+    if (typeof videojs === 'undefined') {
+        console.error("Erreur : Video.js n'est pas chargé.");
+        alert("Le lecteur vidéo charge encore, réessayez dans un instant.");
+        return;
+    }
     const overlay = document.createElement('div');
     overlay.id = "falcon-overlay";
     overlay.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;";
