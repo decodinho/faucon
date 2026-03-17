@@ -101,7 +101,7 @@
       const [loading, setLoading] = useState(true);
 
       useEffect(() => {
-        fetch(`https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com{categoryKey}`)
+        fetch(`https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com/dev/read?category={categoryKey}`)
           .then(res => res.json())
           .then(data => {
             let parsed = typeof data === 'string' ? JSON.parse(data) : data;
