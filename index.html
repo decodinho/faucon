@@ -207,7 +207,7 @@
               <p style={{color:'white'}}>Chargement...</p>
             ) : (
               videos.map((v, i) => (
-                <div className="video-card" onClick={() => window.lancerStreaming('{v.hls_manifest_url}')} key={v.PK || i}>
+                <div className="video-card" onClick={() => window.lancerStreaming(v.hls_manifest_url)} key={v.PK || i}>
                   <button className="btn-playlist" title="Ajouter à la sélection">
                     <i className="fas fa-plus"></i>
                   </button>
