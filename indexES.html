@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Falcon Stream Edition - Español</title>
+  <title>Falcon Stream Edition</title>
   
-   <!-- Corrections des liens CSS -->
+  <!-- CSS Link Corrections -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
   <link href="https://unpkg.com/video.js@8.10.0/dist/video-js.css" rel="stylesheet">
 
-  <!-- Scripts React et Babel -->
+  <!-- React and Babel Scripts -->
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
   <!-- Video.js -->
   <script src="https://unpkg.com/video.js@8.10.0/dist/video.min.js"></script>
+  <script src= "playerFalcon.js"></script>
 
   <style>
     :root {
-      --primary-blue: #005086;
-      --dark-bg: #1a1a1a;
-      --card-bg: #ffffff;
-      --text-main: #000000;
+      --jw-bg: #1a1a1a;
+      --jw-card-bg: #ffffff;
       --turquoise: #40E0D0;
       --nav-bg: #24292E; 
     }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--dark-bg);
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background-color: var(--jw-bg);
       color: white;
     }
 
@@ -44,147 +43,83 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     }
 
-    .logo-section { display: flex; align-items: center; gap: 15px; font-weight: bold; font-size: 1.5rem; }
-    .logo-section em { color: var(--turquoise); font-style: normal; text-transform: uppercase; letter-spacing: 2px; }
-    
+    .logo-section { display: flex; align-items: center; gap: 15px; font-weight: bold; font-size: 1.2rem; }
     .nav-right { display: flex; align-items: center; gap: 15px; }
 
     .nav-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid white;
       color: white;
-      padding: 6px 15px;
-      border-radius: 20px;
+      padding: 5px 12px;
+      border-radius: 4px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.85rem;
-      transition: 0.3s;
+      font-size: 0.9rem;
     }
 
-    .nav-btn:hover { background: var(--turquoise); color: var(--nav-bg); border-color: var(--turquoise); }
+    .lang-dropdown {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background: var(--nav-bg);
+      border: 1px solid var(--turquoise);
+      border-radius: 4px;
+      min-width: 150px;
+      z-index: 100;
+    }
 
-    .category-section { margin-bottom: 40px; padding: 0 40px; }
-
-    .category-header {
+    .lang-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 15px;
+      gap: 10px;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
     }
 
-    .category-header h2 { font-size: 1.4rem; color: var(--turquoise); margin: 0; }
-    .view-all { color: #aaa; font-size: 0.9rem; cursor: pointer; text-decoration: none; }
-    .view-all:hover { color: white; }
+    .lang-item:hover { background: var(--turquoise); color: black; }
 
-    .video-gallery {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding-bottom: 15px;
-      scroll-behavior: smooth;
-    }
+    .category-section { padding: 20px 40px; }
+    .category-header h2 { color: var(--turquoise); margin-bottom: 15px; }
 
-    .video-gallery::-webkit-scrollbar { height: 6px; }
-    .video-gallery::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+    .video-gallery { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 10px; }
 
     .video-card {
-      min-width: 280px;
-      background: var(--card-bg);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s;
-      cursor: pointer;
-      position: relative;
-      color: black;
-    }
-
-    .video-card:hover { transform: translateY(-5px); }
-
-    .thumbnail-container {
-      position: relative;
-      width: 100%;
-      height: 157px;
-      background-color: #000;
-    }
-
-    .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
-
-    .duration-tag {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 2px 6px;
-      font-size: 11px;
+      min-width: 260px;
+      background: var(--jw-card-bg);
       border-radius: 4px;
+      overflow: hidden;
+      color: black;
+      cursor: pointer;
     }
 
-    .video-info { padding: 15px; }
-    .video-info h3 { font-size: 1rem; margin: 0 0 8px 0; line-height: 1.2; height: 2.4em; overflow: hidden; }
-    .video-info p { font-size: 0.85rem; color: #666; margin: 0; }
-
-    /* Modal del Reproductor */
-    #player-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.95);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content { width: 90%; max-width: 1000px; position: relative; }
-    .close-modal {
-      position: absolute;
-      top: -40px; right: 0;
-      color: white; font-size: 2.5rem; cursor: pointer;
-    }
+    .thumbnail-container { position: relative; height: 146px; background: #000; }
+    .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
+    .video-info { padding: 12px; }
   </style>
 </head>
 <body>
-
-  <!-- Reproductor Modal -->
-  <div id="player-modal">
-    <div class="modal-content">
-      <span class="close-modal" id="closeBtn">&times;</span>
-      <video id="main-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="1000" height="560"></video>
-    </div>
-  </div>
-
   <div id="root"></div>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Función para lanzar el reproductor
-    window.launchStream = (url) => {
-      const modal = document.getElementById('player-modal');
-      const videoId = 'main-player';
-      const streamUrl = url || "https://test-streams.mux.dev"; // H.264 Muestra
-      
-      modal.style.display = 'flex';
-      const player = videojs(videoId);
-      player.src({ src: streamUrl, type: 'application/x-mpegURL' });
-      player.play();
-
-      document.getElementById('closeBtn').onclick = () => {
-        modal.style.display = 'none';
-        player.pause();
-      };
-    };
+    // Simulation of playback function if playerFalcon.js is missing
+    window.lancerStreaming = window.lancerStreaming || ((url) => {
+        alert("Playing stream: " + (url || "Default H.264 stream"));
+    });
 
     function VideoRow({ title, categoryKey }) {
       const [videos, setVideos] = useState([]);
       const [loading, setLoading] = useState(true);
 
       useEffect(() => {
-        const url = `https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com{categoryKey}`;
+        const url = `https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com/dev/read?category=${categoryKey}`;
         fetch(url)
           .then(res => res.json())
           .then(data => {
@@ -200,64 +135,59 @@
 
       return (
         <section className="category-section">
-          <div className="category-header">
-            <h2>{title}</h2>
-            <span className="view-all">Ver todo ></span>
-          </div>
+          <div className="category-header"><h2>{title}</h2></div>
           <div className="video-gallery">
-            {loading ? (
-              <p>Cargando videos...</p>
-            ) : (
-              videos.map((v, i) => (
-                <div className="video-card" onClick={() => window.launchStream(v.hls_manifest_url)} key={v.PK || i}>
-                  <div className="thumbnail-container">
-                    <img src={v.thumbnail_url || "https://via.placeholder.com"} alt={v.title} />
-                    {v.duration_seconds && (
-                      <span className="duration-tag">
-                        {Math.floor(v.duration_seconds / 60)}:{(v.duration_seconds % 60).toString().padStart(2, '0')}
-                      </span>
-                    )}
-                  </div>
-                  <div className="video-info">
-                    <h3>{v.title || "Video sin título"}</h3>
-                    <p>{v.uploader_id?.replace('USER#', '') || "Miembro Falcon"}</p>
-                  </div>
+            {loading ? <p>Loading...</p> : videos.map((v, i) => (
+              <div className="video-card" onClick={() => window.lancerStreaming(v.hls_manifest_url)} key={i}>
+                <div className="thumbnail-container">
+                  <img src={v.thumbnail_url || "https://via.placeholder.com"} alt={v.title} />
                 </div>
-              ))
-            )}
+                <div className="video-info">
+                  <h3 style={{fontSize:'0.9rem', margin:'0'}}>{v.title || "Untitled"}</h3>
+                  <p style={{fontSize:'0.8rem', color:'#666'}}>{v.uploader_id || "Falcon"}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       );
     }
 
     function App() {
+      const [showLangs, setShowLangs] = useState(false);
       const categories = [
-        { id: "news", label: "Últimas Noticias" },
-        { id: "Music", label: "Música y Tendencias" },
-        { id: "Sport", label: "Deportes y Ocio" },
-        { id: "Cuisine", label: "Arte Culinario" },
-        { id: "Learning", label: "Programas Educativos" }
+        { id: "news", label: "News" },
+        { id: "Music", label: "Music" },
+        { id: "Sport", label: "Sports" },
+        { id: "Cuisine", label: "Cooking" },
+        { id: "Learning", label: "Learning" },
       ];
 
       return (
-        <div className="app-container">
+        <div>
           <header className="navbar">
-            <div className="logo-section">
-              <i className="fas fa-bars" style={{cursor:'pointer', marginRight:'10px'}}></i>
-              <span><em>FALCON</em></span>
-            </div>
-            
+            <div className="logo-section"><span>FALCON</span></div>
             <div className="nav-right">
-              <button className="nav-btn"><i className="fas fa-broadcast-tower"></i> En Vivo</button>
-              <button className="nav-btn"><i className="fas fa-globe"></i> Español</button>
-              <button className="nav-btn"><i className="fas fa-users"></i> Ver en Grupo</button>
-              <button className="nav-btn" style={{background: 'var(--turquoise)', color: 'black', fontWeight: 'bold'}}>
-                <i className="fas fa-user-circle"></i> Iniciar Sesión
-              </button>
+              <button className="nav-btn">LIVE</button>
+              
+              <div style={{position: 'relative'}}>
+                <button className="nav-btn" onClick={() => setShowLangs(!showLangs)}>
+                  <i className="fas fa-globe"></i> Languages
+                </button>
+                {showLangs && (
+                  <div className="lang-dropdown">
+                    <a href="index.html" className="lang-item"><img src="https://flagcdn.com" width="20"/> French</a>
+                    <a href="indexEN.html" className="lang-item"><img src="https://flagcdn.com" width="20"/> English</a>
+                    <a href="indexES.html" className="lang-item"><img src="https://flagcdn.com" width="20"/> Spanish</a>
+                  </div>
+                )}
+              </div>
+              
+              <button className="nav-btn">Sign In</button>
             </div>
           </header>
 
-          <main style={{paddingTop: '30px'}}>
+          <main>
             {categories.map(cat => (
               <VideoRow key={cat.id} title={cat.label} categoryKey={cat.id} />
             ))}
@@ -266,9 +196,9 @@
       );
     }
 
+    // CRUCIAL: App rendering in the DOM
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
 </body>
 </html>
-
