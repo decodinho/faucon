@@ -1,1 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Falcon Stream Edition - Español</title>
+  
+  <!-- FontAwesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+  <!-- Video.js CSS -->
+  <link href="https://unpkg.com" rel="stylesheet">
+
+  <!-- React & Babel -->
+  <script src="https://unpkg.com"></script>
+  <script src="https://unpkg.com"></script>
+  <script src="https://unpkg.com"></script>
+  
+  <!-- Motor Video.js -->
+  <script src="https://unpkg.com"></script>
+
+  <style>
+    :root {
+      --primary-blue: #005086;
+      --dark-bg: #1a1a1a;
+      --card-bg: #ffffff;
+      --text-main: #000000;
+      --turquoise: #40E0D0;
+      --nav-bg: #24292E; 
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--dark-bg);
+      color: white;
+    }
+
+    .navbar {
+      background-color: var(--nav-bg);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .logo-section { display: flex; align-items: center; gap: 15px; font-weight: bold; font-size: 1.5rem; }
+    .logo-section em { color: var(--turquoise); font-style: normal; text-transform: uppercase; letter-spacing: 2px; }
+    
+    .nav-right { display: flex; align-items: center; gap: 15px; }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover { background: var(--turquoise); color: var(--nav-bg); border-color: var(--turquoise); }
+
+    .category-section { margin-bottom: 40px; padding: 0 40px; }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .category-header h2 { font-size: 1.4rem; color: var(--turquoise); margin: 0; }
+    .view-all { color: #aaa; font-size: 0.9rem; cursor: pointer; text-decoration: none; }
+    .view-all:hover { color: white; }
+
+    .video-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding-bottom: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .video-gallery::-webkit-scrollbar { height: 6px; }
+    .video-gallery::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+    .video-card {
+      min-width: 280px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+      position: relative;
+      color: black;
+    }
+
+    .video-card:hover { transform: translateY(-5px); }
+
+    .thumbnail-container {
+      position: relative;
+      width: 100%;
+      height: 157px;
+      background-color: #000;
+    }
+
+    .thumbnail-container img { width: 100%; height: 100%; object-fit: cover; }
+
+    .duration-tag {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 2px 6px;
+      font-size: 11px;
+      border-radius: 4px;
+    }
+
+    .video-info { padding: 15px; }
+    .video-info h3 { font-size: 1rem; margin: 0 0 8px 0; line-height: 1.2; height: 2.4em; overflow: hidden; }
+    .video-info p { font-size: 0.85rem; color: #666; margin: 0; }
+
+    /* Modal del Reproductor */
+    #player-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content { width: 90%; max-width: 1000px; position: relative; }
+    .close-modal {
+      position: absolute;
+      top: -40px; right: 0;
+      color: white; font-size: 2.5rem; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reproductor Modal -->
+  <div id="player-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeBtn">&times;</span>
+      <video id="main-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="1000" height="560"></video>
+    </div>
+  </div>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Función para lanzar el reproductor
+    window.launchStream = (url) => {
+      const modal = document.getElementById('player-modal');
+      const videoId = 'main-player';
+      const streamUrl = url || "https://test-streams.mux.dev"; // H.264 Muestra
+      
+      modal.style.display = 'flex';
+      const player = videojs(videoId);
+      player.src({ src: streamUrl, type: 'application/x-mpegURL' });
+      player.play();
+
+      document.getElementById('closeBtn').onclick = () => {
+        modal.style.display = 'none';
+        player.pause();
+      };
+    };
+
+    function VideoRow({ title, categoryKey }) {
+      const [videos, setVideos] = useState([]);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const url = `https://1tdc4hjrug.execute-api.us-east-1.amazonaws.com{categoryKey}`;
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            let parsed = typeof data === 'string' ? JSON.parse(data) : data;
+            if (parsed && !Array.isArray(parsed)) parsed = [parsed];
+            setVideos(parsed || []);
+            setLoading(false);
+          })
+          .catch(() => setLoading(false));
+      }, [categoryKey]);
+
+      if (!loading && videos.length === 0) return null;
+
+      return (
+        <section className="category-section">
+          <div className="category-header">
+            <h2>{title}</h2>
+            <span className="view-all">Ver todo ></span>
+          </div>
+          <div className="video-gallery">
+            {loading ? (
+              <p>Cargando videos...</p>
+            ) : (
+              videos.map((v, i) => (
+                <div className="video-card" onClick={() => window.launchStream(v.hls_manifest_url)} key={v.PK || i}>
+                  <div className="thumbnail-container">
+                    <img src={v.thumbnail_url || "https://via.placeholder.com"} alt={v.title} />
+                    {v.duration_seconds && (
+                      <span className="duration-tag">
+                        {Math.floor(v.duration_seconds / 60)}:{(v.duration_seconds % 60).toString().padStart(2, '0')}
+                      </span>
+                    )}
+                  </div>
+                  <div className="video-info">
+                    <h3>{v.title || "Video sin título"}</h3>
+                    <p>{v.uploader_id?.replace('USER#', '') || "Miembro Falcon"}</p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+      );
+    }
+
+    function App() {
+      const categories = [
+        { id: "news", label: "Últimas Noticias" },
+        { id: "Music", label: "Música y Tendencias" },
+        { id: "Sport", label: "Deportes y Ocio" },
+        { id: "Cuisine", label: "Arte Culinario" },
+        { id: "Learning", label: "Programas Educativos" }
+      ];
+
+      return (
+        <div className="app-container">
+          <header className="navbar">
+            <div className="logo-section">
+              <i className="fas fa-bars" style={{cursor:'pointer', marginRight:'10px'}}></i>
+              <span><em>FALCON</em></span>
+            </div>
+            
+            <div className="nav-right">
+              <button className="nav-btn"><i className="fas fa-broadcast-tower"></i> En Vivo</button>
+              <button className="nav-btn"><i className="fas fa-globe"></i> Español</button>
+              <button className="nav-btn"><i className="fas fa-users"></i> Ver en Grupo</button>
+              <button className="nav-btn" style={{background: 'var(--turquoise)', color: 'black', fontWeight: 'bold'}}>
+                <i className="fas fa-user-circle"></i> Iniciar Sesión
+              </button>
+            </div>
+          </header>
+
+          <main style={{paddingTop: '30px'}}>
+            {categories.map(cat => (
+              <VideoRow key={cat.id} title={cat.label} categoryKey={cat.id} />
+            ))}
+          </main>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
 
