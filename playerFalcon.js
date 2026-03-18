@@ -1,8 +1,8 @@
 window.lancerStreaming = function(url) {
     // Vérifie si la bibliothèque est prête
     if (typeof videojs === 'undefined') {
-        console.error("Erreur : Video.js n'est pas chargé.");
-        alert("Le lecteur vidéo charge encore, réessayez dans un instant.");
+        console.log("Tentative de reconnexion au moteur Video.js...");
+        setTimeout(() => window.lancerStreaming(url), 500); // Réessaie dans 0.5 sec
         return;
     }
     const overlay = document.createElement('div');
