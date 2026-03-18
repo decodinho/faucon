@@ -23,7 +23,7 @@ window.lancerStreaming = function(url) {
                 controls: true,
                 fluid: true,
                 responsive: true,
-                sources: [{ src: url, type: 'application/x-mpegURL' }]
+                sources: [{ src: url, type: 'video/mp4' }]
             });
 
             // 3. Gestion de la fermeture
