@@ -8,7 +8,7 @@ window.lancerStreaming = function(url) {
         <div style="width:90%; max-width:960px; position:relative;">
             <button id="close-player" style="position:absolute; top:-45px; right:0; background:#40E0D0; border:none; color:white; padding:10px 20px; cursor:pointer; border-radius:4px; font-weight:bold; z-index:10001;">FERMER ✕</button>
             <div data-vjs-player>
-                <video id="falcon-video" class="video-js vjs-default-skin vjs-big-play-centered" playsinline style="width:100%; min-height:300px;"></video>
+                <video id="falcon-video" class="video-js vjs-default-skin" playsinline style="width:100%; min-height:300px;"></video>
             </div>
         </div>
     `;
