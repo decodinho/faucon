@@ -3,7 +3,7 @@ window.lancerStreaming = function(url) {
     const overlay = document.createElement('div');
     overlay.id = "falcon-overlay";
     // CHANGEMENT : justify-content: flex-end et padding-right pour décaler à l'opposé
-    overlay.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:10000;display:flex;align-items:center;justify-content:flex-end;padding-right:5cm;flex-direction:column;box-sizing:border-box;";
+    overlay.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:10000;display:flex;align-items:center;justify-content:flex-end;padding-right:2cm;flex-direction:column;box-sizing:border-box;";
     
     overlay.innerHTML = `
         <div style="width:90%; max-width:960px; position:relative; margin-top:auto; margin-bottom:auto;">
